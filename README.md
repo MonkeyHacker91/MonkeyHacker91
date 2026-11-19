@@ -1,19 +1,54 @@
+```text
+ ███╗   ██╗███████╗██╗   ██╗██████╗ ██╗  ██╗
+ ████╗  ██║██╔════╝██║   ██║██╔══██╗╚██╗██╔╝
+ ██╔██╗ ██║█████╗  ██║   ██║██████╔╝ ╚███╔╝
+ ██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗ ██╔██╗
+ ██║ ╚████║███████╗╚██████╔╝██║  ██║██╔╝ ██╗
+ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+        ring-0 · edge agent · noc
+```
+
 # Vinicius Nascimento
 
-Desenvolvo e opero sistemas para **hospedagem, painéis e segurança** — o tipo de código que fica ligado 24/7 em VPS e shared hosting.
+Opero segurança em servidor de hospedagem. O que interessa é o que acontece **depois** do login: processo web virando shell, lateral SSH, arquivo plantado no `public_html`.
 
-## Em que ando
+Construo o **[NeurX](https://neurx.online)** — NOC que mata isso no kernel (eBPF/Tetragon), bane IP no perímetro e cura arquivo no edge sem derrubar o site.
 
-- **NeurX** — NOC de segurança com eBPF, agente no edge, ban de IP e autocura de arquivos ([neurx.online](https://neurx.online))
-- Stacks de **WHM / cPanel / WHMCS**, APIs e painéis internos (Gen3 e afins)
-- Integrações PHP/Node, filas, Redis, automação de servidor
+<p align="center">
+  <a href="https://neurx.online"><img src="https://img.shields.io/badge/NOC-neurx.online-c4a35a?style=for-the-badge&labelColor=0a0c0e" alt="neurx.online" /></a>
+  <img src="https://img.shields.io/badge/eBPF-Tetragon-6b8f71?style=for-the-badge&labelColor=0a0c0e" alt="eBPF" />
+  <img src="https://img.shields.io/badge/edge-heal%20%2B%20ban-c45c4a?style=for-the-badge&labelColor=0a0c0e" alt="edge" />
+</p>
 
-## Stack que uso de verdade
+---
 
-`Node` · `Bun` · `PHP` · `React` · `Redis` · `Docker` · `Linux` · `eBPF/Tetragon` · `nftables`
+### O que o NeurX faz de fato
 
-## Contato
+| Camada | Função |
+|--------|--------|
+| **Ring 0** | Políticas Tetragon — Sigkill em reverse shell, memfd, miner, recon, destruição de disco… |
+| **Edge** | Agente no VPS/WHM: scan, heal in-place, learn de FP, sync de blocklist |
+| **Perímetro** | nftables / CrowdSec — ban com TTL, lista viva no painel |
+| **NOC** | [neurx.online](https://neurx.online) — frota, eventos, MITRE, bloqueios |
 
-GitHub: [MonkeyHacker91](https://github.com/MonkeyHacker91)
+Fluxo que importa: **evento → ban → cura → revisão humana**. Quarentena automática de site? Não. Só malware confirmado no painel.
 
-Se for parceria ou infra: abra uma issue num repo ou manda mensagem por aqui.
+---
+
+### Dia a dia
+
+- Shared, VPS e WHM/cPanel no sangue (Enhance, LiteSpeed, lsphp)
+- PHP/Node em produção, Redis/BullMQ, Docker no core
+- Automação de servidor, painéis, WHMCS, Gen3
+
+```
+Node · Bun · PHP · React · Redis · Docker · Linux · eBPF · nftables
+```
+
+---
+
+### Contato
+
+Quer falar de NeurX, hospedagem ou parceria de infra: issue neste perfil ou mensagem no GitHub.
+
+`MonkeyHacker91` · Brasil
